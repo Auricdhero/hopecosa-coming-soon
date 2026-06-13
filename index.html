@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HOPECOSA — Coming Soon</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Playfair Display + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0a1628',
+                            800: '#0f2040',
+                            700: '#163058',
+                            600: '#1e4080',
+                        },
+                        gold: {
+                            300: '#f0d080',
+                            400: '#e8b84b',
+                            500: '#c9942a',
+                            600: '#a87820',
+                        },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.9s ease both',
+                        'fade-in': 'fadeIn 1.2s ease both',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {opacity: '0', transform: 'translateY(32px)'},
+                            '100%': {opacity: '1', transform: 'translateY(0)'},
+                        },
+                        fadeIn: {
+                            '0%': {opacity: '0'},
+                            '100%': {opacity: '1'},
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        /* Material elevation shadows */
+        .elevation-4 {
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .3), 0 4px 5px 0 rgba(0, 0, 0, .22), 0 1px 10px 0 rgba(0, 0, 0, .18);
+        }
+
+        .elevation-8 {
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .3), 0 8px 10px 1px rgba(0, 0, 0, .22), 0 3px 14px 2px rgba(0, 0, 0, .18);
+        }
+
+        .elevation-16 {
+            box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .35), 0 16px 24px 2px rgba(0, 0, 0, .24), 0 6px 30px 5px rgba(0, 0, 0, .2);
+        }
+
+        /* Ornamental divider */
+        .ornament::before,
+        .ornament::after {
+            content: '';
+            display: inline-block;
+            height: 1px;
+            width: 60px;
+            background: linear-gradient(to right, transparent, #c9942a);
+            vertical-align: middle;
+            margin: 0 12px;
+        }
+
+        .ornament::after {
+            background: linear-gradient(to left, transparent, #c9942a);
+        }
+
+        /* Countdown digit card */
+        .digit-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .digit-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Ripple effect on subscribe button */
+        .ripple-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .ripple-btn:hover::after {
+            opacity: 1;
+        }
+
+        /* Background texture overlay */
+        .bg-texture {
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(30, 64, 128, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(201, 148, 42, 0.12) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Scrollbar hidden */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Input focus ring */
+        .email-input:focus {
+            outline: none;
+            border-color: #c9942a;
+            box-shadow: 0 0 0 3px rgba(201, 148, 42, 0.2);
+        }
+
+        /* Notification */
+        #toast {
+            transition: opacity 0.4s, transform 0.4s;
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen flex flex-col items-center justify-center bg-navy-900 bg-texture text-white overflow-hidden relative">
+
+    <!-- ── Decorative background blobs ── -->
+    <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+        <div
+            class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-navy-700 opacity-30 blur-3xl animate-pulse-slow">
+        </div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-gold-600 opacity-10 blur-3xl animate-pulse-slow"
+            style="animation-delay:2s"></div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-gold-600 opacity-5">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full border border-gold-600 opacity-[0.03]">
+        </div>
+    </div>
+
+    <!-- ── Main card ── -->
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-6 py-14 flex flex-col items-center text-center gap-8">
+
+        <!-- Logo / Monogram -->
+        <div class="animate-fade-in" style="animation-delay:0.1s">
+            <div
+                class="w-20 h-20 rounded-full border-2 border-gold-500 flex items-center justify-center elevation-8 bg-navy-800 mb-2 mx-auto">
+                <span class="font-serif font-bold text-gold-400 text-3xl tracking-widest leading-none">HC</span>
+            </div>
+        </div>
+
+        <!-- Brand name -->
+        <div class="animate-fade-in-up" style="animation-delay:0.2s">
+            <h1
+                class="font-serif font-bold tracking-[0.22em] text-4xl sm:text-5xl md:text-6xl uppercase text-white leading-tight">
+                HOPECOSA
+            </h1>
+            <p class="ornament mt-3 text-gold-400 text-xs tracking-[0.3em] uppercase font-sans font-medium">
+                Est. 2026
+            </p>
+        </div>
+
+        <!-- Tagline -->
+        <div class="animate-fade-in-up" style="animation-delay:0.35s">
+            <p class="font-serif italic text-lg sm:text-xl text-white/75 leading-relaxed max-w-md mx-auto">
+                "Empowering Communities.<br class="hidden sm:block" /> Building Futures. Inspiring Hope."
+            </p>
+        </div>
+
+        <!-- Divider rule -->
+        <div class="animate-fade-in w-full flex items-center gap-4" style="animation-delay:0.45s">
+            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-600 to-transparent opacity-40"></div>
+            <span class="material-icons text-gold-500 text-base opacity-70">star</span>
+            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-600 to-transparent opacity-40"></div>
+        </div>
+
+        <!-- Coming Soon headline -->
+        <div class="animate-fade-in-up" style="animation-delay:0.5s">
+            <p class="font-sans font-light tracking-[0.35em] uppercase text-gold-400 text-sm mb-1">
+                Something remarkable is
+            </p>
+            <h2 class="font-serif font-semibold text-3xl sm:text-4xl tracking-wide text-white">
+                Coming Soon
+            </h2>
+        </div>
+
+        <!-- Notify form -->
+        <div class="animate-fade-in-up w-full" style="animation-delay:0.75s">
+            <p class="font-sans font-light text-white/60 text-sm mb-4 tracking-wide">
+                Be the first to know when we launch.
+            </p>
+            <form id="notify-form" class="flex flex-col sm:flex-row gap-3 w-full max-w-md mx-auto" novalidate>
+                <div class="relative flex-1">
+                    <span
+                        class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-lg pointer-events-none">mail_outline</span>
+                    <input id="email-input" type="email" placeholder="Your email address" autocomplete="email"
+                        class="email-input w-full bg-navy-800 border border-white/15 text-white placeholder-white/35 font-sans text-sm rounded-lg pl-10 pr-4 py-3.5 transition-all duration-200"
+                        required />
+                </div>
+                <button type="submit"
+                    class="ripple-btn bg-gold-500 hover:bg-gold-400 active:bg-gold-600 text-navy-900 font-sans font-semibold text-sm uppercase tracking-widest rounded-lg px-7 py-3.5 elevation-4 transition-all duration-200">
+                    Notify Me
+                </button>
+            </form>
+            <p id="form-msg" class="mt-2 text-xs font-sans text-gold-400 hidden"></p>
+        </div>
+
+        <!-- Divider rule -->
+        <div class="animate-fade-in w-full flex items-center gap-4" style="animation-delay:0.85s">
+            <div class="flex-1 h-px bg-white/10"></div>
+        </div>
+
+        <!-- Social / contact row -->
+        <div class="animate-fade-in-up flex items-center gap-6" style="animation-delay:0.92s">
+            <a href="#" aria-label="Facebook"
+                class="w-10 h-10 rounded-full border border-white/15 hover:border-gold-500 flex items-center justify-center text-white/50 hover:text-gold-400 transition-all duration-200 elevation-4 bg-navy-800">
+                <!-- Facebook SVG -->
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+            </a>
+            <a href="#" aria-label="Twitter / X"
+                class="w-10 h-10 rounded-full border border-white/15 hover:border-gold-500 flex items-center justify-center text-white/50 hover:text-gold-400 transition-all duration-200 elevation-4 bg-navy-800">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 4l16 16M20 4 4 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        fill="none" />
+                </svg>
+            </a>
+            <a href="#" aria-label="Instagram"
+                class="w-10 h-10 rounded-full border border-white/15 hover:border-gold-500 flex items-center justify-center text-white/50 hover:text-gold-400 transition-all duration-200 elevation-4 bg-navy-800">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+                </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn"
+                class="w-10 h-10 rounded-full border border-white/15 hover:border-gold-500 flex items-center justify-center text-white/50 hover:text-gold-400 transition-all duration-200 elevation-4 bg-navy-800">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Footer note -->
+        <div class="animate-fade-in" style="animation-delay:1s">
+            <p class="font-sans text-white/25 text-xs tracking-widest uppercase">
+                &copy; 2026 HOPECOSA &mdash; All Rights Reserved
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Toast notification -->
+    <div id="toast"
+        class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-navy-800 border border-gold-500 text-white font-sans text-sm px-6 py-3 rounded-xl elevation-16 flex items-center gap-3 opacity-0 translate-y-4 pointer-events-none"
+        role="status" aria-live="polite">
+        <span class="material-icons text-gold-400 text-base">check_circle</span>
+        <span id="toast-msg"></span>
+    </div>
+
+    <script>
+        // ── Toast helper ─────────────────────────────────────────────────
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            toast.style.pointerEvents = 'auto';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(1rem)';
+                toast.style.pointerEvents = 'none';
+            }, 3800);
+        }
+
+        // ── Notify form ───────────────────────────────────────────────────
+        const form = document.getElementById('notify-form');
+        const input = document.getElementById('email-input');
+        const msg = document.getElementById('form-msg');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = input.value.trim();
+            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            if (!valid) {
+                msg.textContent = 'Please enter a valid email address.';
+                msg.className = 'mt-2 text-xs font-sans text-red-400 block';
+                input.focus();
+                return;
+            }
+
+            msg.textContent = '';
+            msg.className = 'mt-2 text-xs font-sans text-gold-400 hidden';
+            input.value = '';
+
+            showToast('Thank you! We\'ll notify you at launch.');
+        });
+    </script>
+</body>
+
+</html>
