@@ -140,18 +140,6 @@
         ::-webkit-scrollbar {
             display: none;
         }
-
-        /* Input focus ring */
-        .email-input:focus {
-            outline: none;
-            border-color: #c9942a;
-            box-shadow: 0 0 0 3px rgba(201, 148, 42, 0.2);
-        }
-
-        /* Notification */
-        #toast {
-            transition: opacity 0.4s, transform 0.4s;
-        }
     </style>
 </head>
 
@@ -198,7 +186,7 @@
         <!-- Tagline -->
         <div class="animate-fade-in-up" style="animation-delay:0.35s">
             <p class="font-serif italic text-lg sm:text-xl text-white/75 leading-relaxed max-w-md mx-auto">
-                "Empowering Communities.<br class="hidden sm:block" /> Building Futures. Inspiring Hope."
+                "Let's Keep Hope High..."
             </p>
         </div>
 
@@ -222,22 +210,15 @@
         <!-- Notify form -->
         <div class="animate-fade-in-up w-full" style="animation-delay:0.75s">
             <p class="font-sans font-light text-white/60 text-sm mb-4 tracking-wide">
-                Be the first to know when we launch.
+                Access the HOPECOSA portal to register and join.
             </p>
-            <form id="notify-form" class="flex flex-col sm:flex-row gap-3 w-full max-w-md mx-auto" novalidate>
-                <div class="relative flex-1">
-                    <span
-                        class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-lg pointer-events-none">mail_outline</span>
-                    <input id="email-input" type="email" placeholder="Your email address" autocomplete="email"
-                        class="email-input w-full bg-navy-800 border border-white/15 text-white placeholder-white/35 font-sans text-sm rounded-lg pl-10 pr-4 py-3.5 transition-all duration-200"
-                        required />
-                </div>
-                <button type="submit"
-                    class="ripple-btn bg-gold-500 hover:bg-gold-400 active:bg-gold-600 text-navy-900 font-sans font-semibold text-sm uppercase tracking-widest rounded-lg px-7 py-3.5 elevation-4 transition-all duration-200">
-                    Notify Me
-                </button>
-            </form>
-            <p id="form-msg" class="mt-2 text-xs font-sans text-gold-400 hidden"></p>
+            <div class="flex justify-center w-full">
+                <a href="https://portal.hopecosa.org"
+                    class="ripple-btn inline-flex items-center justify-center bg-gold-500 hover:bg-gold-400 active:bg-gold-600 text-navy-900 font-sans font-semibold text-sm uppercase tracking-widest rounded-lg px-7 py-3.5 elevation-4 transition-all duration-200"
+                    role="button">
+                    Register/Join
+                </a>
+            </div>
         </div>
 
         <!-- Divider rule -->
@@ -287,54 +268,6 @@
         </div>
 
     </main>
-
-    <!-- Toast notification -->
-    <div id="toast"
-        class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-navy-800 border border-gold-500 text-white font-sans text-sm px-6 py-3 rounded-xl elevation-16 flex items-center gap-3 opacity-0 translate-y-4 pointer-events-none"
-        role="status" aria-live="polite">
-        <span class="material-icons text-gold-400 text-base">check_circle</span>
-        <span id="toast-msg"></span>
-    </div>
-
-    <script>
-        // ── Toast helper ─────────────────────────────────────────────────
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').textContent = message;
-            toast.style.opacity = '1';
-            toast.style.transform = 'translateX(-50%) translateY(0)';
-            toast.style.pointerEvents = 'auto';
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-50%) translateY(1rem)';
-                toast.style.pointerEvents = 'none';
-            }, 3800);
-        }
-
-        // ── Notify form ───────────────────────────────────────────────────
-        const form = document.getElementById('notify-form');
-        const input = document.getElementById('email-input');
-        const msg = document.getElementById('form-msg');
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = input.value.trim();
-            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-            if (!valid) {
-                msg.textContent = 'Please enter a valid email address.';
-                msg.className = 'mt-2 text-xs font-sans text-red-400 block';
-                input.focus();
-                return;
-            }
-
-            msg.textContent = '';
-            msg.className = 'mt-2 text-xs font-sans text-gold-400 hidden';
-            input.value = '';
-
-            showToast('Thank you! We\'ll notify you at launch.');
-        });
-    </script>
 </body>
 
 </html>
